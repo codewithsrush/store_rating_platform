@@ -10,6 +10,8 @@ import Users from "../pages/admin/Users";
 import Stores from "../pages/admin/Stores";
 import AddUser from "../pages/admin/AddUser";
 import AddStore from "../pages/admin/AddStore";
+import Signup from "../pages/auth/Signup";
+
 
 // User
 import UserDashboard from "../pages/user/Dashboard";
@@ -25,6 +27,7 @@ export default function AppRoutes() {
 
         {/* Login */}
         <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         {/* Admin */}
         <Route path="/admin" element={<DashboardLayout />}>
