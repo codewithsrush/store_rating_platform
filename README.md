@@ -114,26 +114,11 @@ DB_NAME=store_rating_platform
 JWT_SECRET=your_secret_key
 ```
 
----
 
-## 📸 Screenshots
-
-Add screenshots of:
-
-- Login
-- Signup
-- Admin Dashboard
-- User Dashboard
-- Store Owner Dashboard
-
----
 
 ## 👩‍💻 Developer
 
 **Srushti Mhaske**
-
-BE Information Technology  
-PES Modern College of Engineering, Pune
 
 ---
 
