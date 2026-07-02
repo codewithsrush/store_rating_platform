@@ -9,6 +9,7 @@ import Users from "../pages/admin/Users";
 import Stores from "../pages/admin/Stores";
 import AddUser from "../pages/admin/AddUser";
 import AddStore from "../pages/admin/AddStore";
+import UserDashboard from "../pages/user/Dashboard";
 
 export default function AppRoutes() {
   return (
@@ -22,6 +23,7 @@ export default function AppRoutes() {
           <Route path="stores" element={<Stores />} />
           <Route path="add-user" element={<AddUser />} />
           <Route path="add-store" element={<AddStore />} />
+          <Route path="/user/dashboard" element={<UserDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
