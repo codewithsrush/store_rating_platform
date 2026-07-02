@@ -1,39 +1,39 @@
-import { Drawer, List, ListItemButton, ListItemText, Toolbar } from "@mui/material";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
+import { Outlet } from "react-router-dom";
+
+import Sidebar from "../components/layout/Sidebar.jsx";
+import Navbar from "../components/layout/Navbar.jsx";
 
 export default function DashboardLayout() {
-  const navigate = useNavigate();
 
   return (
-    <div style={{ display: "flex" }}>
-      <Drawer variant="permanent">
-        <Toolbar />
-        <List sx={{ width: 220 }}>
-          <ListItemButton onClick={() => navigate("/admin/dashboard")}>
-            <ListItemText primary="Dashboard" />
-          </ListItemButton>
 
-          <ListItemButton onClick={() => navigate("/admin/users")}>
-            <ListItemText primary="Users" />
-          </ListItemButton>
+    <Box sx={{ display: "flex" }}>
 
-          <ListItemButton onClick={() => navigate("/admin/stores")}>
-            <ListItemText primary="Stores" />
-          </ListItemButton>
-        </List>
+      <Sidebar />
 
-        <ListItemButton onClick={() => navigate("/admin/add-user")}>
-         <ListItemText primary="Add User" />
-        </ListItemButton>
+      <Box
+        sx={{
+          flexGrow: 1,
+          background: "#f5f7fb",
+          minHeight: "100vh",
+        }}
+      >
 
-        <ListItemButton onClick={() => navigate("/admin/add-store")}>
-        <ListItemText primary="Add Store" />
-        </ListItemButton>
-      </Drawer>
+        <Navbar />
 
-      <div style={{ flex: 1, padding: 30 }}>
-        <Outlet />
-      </div>
-    </div>
+        <Box
+          sx={{
+            p: 4,
+          }}
+        >
+          <Outlet />
+        </Box>
+
+      </Box>
+
+    </Box>
+
   );
+
 }

@@ -28,12 +28,18 @@ export default function AppRoutes() {
 
         {/* Admin */}
         <Route path="/admin" element={<DashboardLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="users" element={<Users />} />
-          <Route path="stores" element={<Stores />} />
-          <Route path="add-user" element={<AddUser />} />
-          <Route path="add-store" element={<AddStore />} />
-        </Route>
+
+<Route path="dashboard" element={<Dashboard/>}/>
+
+<Route path="users" element={<Users/>}/>
+
+<Route path="stores" element={<Stores/>}/>
+
+<Route path="add-user" element={<AddUser/>}/>
+
+<Route path="add-store" element={<AddStore/>}/>
+
+</Route>
 
         {/* User */}
         <Route
