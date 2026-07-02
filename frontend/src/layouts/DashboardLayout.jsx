@@ -21,6 +21,14 @@ export default function DashboardLayout() {
             <ListItemText primary="Stores" />
           </ListItemButton>
         </List>
+
+        <ListItemButton onClick={() => navigate("/admin/add-user")}>
+         <ListItemText primary="Add User" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/admin/add-store")}>
+        <ListItemText primary="Add Store" />
+        </ListItemButton>
       </Drawer>
 
       <div style={{ flex: 1, padding: 30 }}>
