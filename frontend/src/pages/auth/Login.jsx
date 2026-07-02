@@ -1,19 +1,34 @@
 import { useState, useContext } from "react";
 import {
-  Container,
+  Grid,
   Paper,
-  Typography,
   TextField,
+  Typography,
   Button,
+  InputAdornment,
+  IconButton,
   Box,
+  CircularProgress,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
+import {
+  Visibility,
+  VisibilityOff,
+  Storefront,
+} from "@mui/icons-material";
+
+import { Link, useNavigate } from "react-router-dom";
+
 import api from "../../services/api";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [form, setForm] = useState({
     email: "",
@@ -27,10 +42,12 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const res = await api.post("/auth/login", form);
 
       localStorage.setItem("token", res.data.token);
@@ -47,44 +64,155 @@ export default function Login() {
       }
     } catch (err) {
       alert(err.response?.data?.message || "Login Failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="sm">
-      <Paper sx={{ p: 5, mt: 10 }}>
-        <Typography variant="h4" mb={3}>
-          Login
+    <Grid container sx={{ minHeight: "100vh" }}>
+      <Grid
+        item
+        md={6}
+        sx={{
+          display: {
+            xs: "none",
+            md: "flex",
+          },
+          background:
+            "linear-gradient(135deg,#16a34a,#22c55e)",
+          color: "#fff",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Storefront sx={{ fontSize: 120 }} />
+
+        <Typography
+          variant="h3"
+          fontWeight="bold"
+          mt={2}
+        >
+          Store Rating Platform
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Email"
-            name="email"
-            onChange={handleChange}
-          />
+        <Typography mt={2}>
+          Rate • Review • Discover
+        </Typography>
+      </Grid>
 
-          <TextField
-            fullWidth
-            margin="normal"
-            type="password"
-            label="Password"
-            name="password"
-            onChange={handleChange}
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3 }}
+      <Grid
+        item
+        xs={12}
+        md={6}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          background: "#f5f7fb",
+        }}
+      >
+        <Paper
+          elevation={8}
+          sx={{
+            width: 450,
+            p: 5,
+            borderRadius: 4,
+          }}
+        >
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            mb={4}
+            textAlign="center"
           >
-            Login
-          </Button>
-        </Box>
-      </Paper>
-    </Container>
+            Welcome Back 👋
+          </Typography>
+
+          <Box
+            component="form"
+            onSubmit={login}
+          >
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              margin="normal"
+              onChange={handleChange}
+            />
+
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Password"
+              name="password"
+              type={
+                showPassword
+                  ? "text"
+                  : "password"
+              }
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        setShowPassword(
+                          !showPassword
+                        )
+                      }
+                    >
+                      {showPassword ? (
+                        <VisibilityOff />
+                      ) : (
+                        <Visibility />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            <Button
+              fullWidth
+              variant="contained"
+              size="large"
+              sx={{
+                mt: 3,
+                py: 1.5,
+              }}
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <CircularProgress
+                  size={25}
+                  color="inherit"
+                />
+              ) : (
+                "Login"
+              )}
+            </Button>
+
+            <Typography
+              mt={3}
+              textAlign="center"
+            >
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                style={{
+                  color: "#16a34a",
+                  fontWeight: "bold",
+                }}
+              >
+                Sign Up
+              </Link>
+            </Typography>
+          </Box>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }
