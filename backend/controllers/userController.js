@@ -57,8 +57,7 @@ const searchStore = (req, res) => {
 // Submit / Update Rating
 const submitRating = (req, res) => {
   const userId = req.user.id;
-
-  const { store_id, rating } = req.body;
+  const { store_id, rating, comment } = req.body;
 
   db.query(
     "SELECT * FROM ratings WHERE user_id=? AND store_id=?",
@@ -68,28 +67,20 @@ const submitRating = (req, res) => {
 
       if (result.length > 0) {
         db.query(
-          "UPDATE ratings SET rating=? WHERE user_id=? AND store_id=?",
-          [rating, userId, store_id],
+          "UPDATE ratings SET rating=?, comment=? WHERE user_id=? AND store_id=?",
+          [rating, comment || null, userId, store_id],
           (err2) => {
             if (err2) return res.status(500).json(err2);
-
-            return res.json({
-              success: true,
-              message: "Rating Updated Successfully",
-            });
+            return res.json({ success: true, message: "Rating Updated Successfully" });
           }
         );
       } else {
         db.query(
-          "INSERT INTO ratings(user_id,store_id,rating) VALUES(?,?,?)",
-          [userId, store_id, rating],
+          "INSERT INTO ratings(user_id,store_id,rating,comment) VALUES(?,?,?,?)",
+          [userId, store_id, rating, comment || null],
           (err3) => {
             if (err3) return res.status(500).json(err3);
-
-            res.json({
-              success: true,
-              message: "Rating Submitted Successfully",
-            });
+            res.json({ success: true, message: "Rating Submitted Successfully" });
           }
         );
       }
