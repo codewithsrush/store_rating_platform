@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import AIInsightCard from "../../components/owner/AIInsightCard";
 
 export default function Dashboard() {
 
@@ -31,6 +32,8 @@ data.map(store=>(
 <p>Average Rating : {store.averageRating||0}</p>
 
 <p>Total Ratings : {store.totalRatings}</p>
+
+<AIInsightCard storeId={store.id} />
 
 <hr/>
 

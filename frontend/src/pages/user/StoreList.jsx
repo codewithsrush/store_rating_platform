@@ -58,12 +58,14 @@ export default function StoreList() {
     );
   }, [stores, search]);
 
-  const handleRating = async (storeId, rating) => {
+  const handleRating = async (storeId, rating, comment) => {   
     try {
       await api.post("/user/rating", {
         store_id: storeId,
         rating,
+        comment,   
       });
+     
 
       setSnackbar({
         open: true,

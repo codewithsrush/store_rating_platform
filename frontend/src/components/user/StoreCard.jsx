@@ -8,6 +8,7 @@ import {
     Box,
     Divider,
     Button,
+    TextField,
   } from "@mui/material";
   
   import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -18,10 +19,11 @@ import {
   
   export default function StoreCard({ store, onRate }) {
     const [rating, setRating] = useState(store.userRating || 0);
-  
+    const [comment, setComment] = useState(store.userComment || "");   
+    
     const handleSubmit = () => {
       if (!rating) return;
-      onRate(store.id, rating);
+      onRate(store.id, rating, comment);   
     };
   
     return (
@@ -105,6 +107,16 @@ import {
                   setRating(newValue);
                 }}
               />
+
+            <TextField
+              size="small"
+              multiline
+              minRows={2}
+              placeholder="Optional: share your experience"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              sx={{ mt: 1 }}
+            />
             </Stack>
   
             <Button
